@@ -37,11 +37,21 @@ $from_record_num = ($records_per_page * $page) - $records_per_page;
 
 
 /**  parameters passed through PHP URL for api/getComments.php **/
+//  product_id is REQUIRED
 
 //  you set the product_id of the product
 $product_id = isset($_GET["product_id"]) ? $_GET["product_id"] : -1;
-//  you set the ordering column e.g. Stars, Date, Id
+//  you set the ordering column e.g. Stars, Id, Date (When Date will be added)
 $order_by = isset($_GET["order_by"]) ? $_GET["order_by"] : "Id";
 //  you set the ordering direction e.g. ASC, DESC
 $order_dir = isset($_GET["order_dir"]) ? $_GET["order_dir"] : "ASC";
 
+/** json example of postComment */
+
+/*
+{
+    "product_id": 3,
+    "comment_text": "Σκουπίδι",
+    "stars": 5
+}
+*/

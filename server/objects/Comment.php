@@ -54,9 +54,12 @@ class Comment
     {
         // query to insert record
         $query = "INSERT INTO $this->table_name (Product_Id, Comment_Text, Stars)
-                  VALUES ($this->product_id, $this->comment_text, $this->stars)";
+                  VALUES ($this->product_id, '{$this->comment_text}', $this->stars)";
 
-        echo $query;
+        /*
+        $query = "INSERT INTO $this->table_name (Product_Id, Comment_Text, Stars, Date)
+                  VALUES ($this->product_id, '$this->comment_text', $this->stars, '$this->date')";
+        */
 
         // prepare query
         $stmt = $this->conn->prepare($query);
