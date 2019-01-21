@@ -62,7 +62,7 @@ if ($num > 0) {
         array_push($results["products"], $product_item);
     }
 
-    $total_rows = $product->count($price_min, $price_max, $casting_cost_min, $casting_cost_max);
+    echo $total_rows = $product->count($price_min, $price_max, $casting_cost_min, $casting_cost_max);
     $paging = $utilities->getPaging($page, $total_rows, $records_per_page);
     $results["number_of_results"] = intval($total_rows);
     $results["paging"] = $paging;

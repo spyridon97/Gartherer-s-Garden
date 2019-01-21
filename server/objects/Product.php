@@ -13,15 +13,15 @@ class Product
     private $table_name = "products";
 
     // object properties
-    public $id = "Id";
-    public $name = "Name";
-    public $price = "Price";
-    public $bottle_image = "Bottle_Image";
-    public $sprite = "Sprite";
-    public $ad = "Ad";
-    public $quote = "Quote";
-    public $effect = "Effect";
-    public $casting_cost = "Casting_Cost";
+    public $id;
+    public $name;
+    public $price;
+    public $bottle_image;
+    public $sprite;
+    public $ad;
+    public $quote;
+    public $effect;
+    public $casting_cost;
 
     // constructor with $db as database connection
     public function __construct($db)
@@ -33,10 +33,10 @@ class Product
                                  $order_by, $order_dir, $from_record_num, $records_per_page)
     {
         // query
-        $query = "SELECT $this->id, $this->name, $this->price, Image, $this->quote, $this->effect, $this->casting_cost
+        $query = "SELECT Id, Name, Price, Image, Quote, Effect, Casting_Cost
                   FROM $this->table_name
-                  WHERE $this->price >= $price_min AND $this->price <= $price_max AND 
-                        $this->casting_cost >= $casting_cost_min AND $this->casting_cost <= $casting_cost_max
+                  WHERE Price >= $price_min AND Price <= $price_max AND 
+                        Casting_Cost >= $casting_cost_min AND Casting_Cost <= $casting_cost_max
                   ORDER BY $order_by $order_dir
                   LIMIT $records_per_page OFFSET $from_record_num";
 
@@ -51,10 +51,10 @@ class Product
 
     public function count($price_min, $price_max, $casting_cost_min, $casting_cost_max)
     {
-        $query = "SELECT COUNT(*) as total_rows 
+        $query = "SELECT COUNT(*) as total_rows
                   FROM $this->table_name
-                  WHERE $this->price >= $price_min AND $this->price <= $price_max AND 
-                        $this->casting_cost >= $casting_cost_min AND $this->casting_cost <= $casting_cost_max";
+                  WHERE Price >= $price_min AND Price <= $price_max AND 
+                        Casting_Cost >= $casting_cost_min AND Casting_Cost <= $casting_cost_max";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

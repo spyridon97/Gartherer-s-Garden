@@ -14,11 +14,11 @@ class Comment
     private $table_name = "comments";
 
     // object properties
-    public $id = 'Id';
-    public $product_id = 'Product_Id';
-    public $comment_text = 'Comment_Text';
-    public $stars = 'Stars';
-    public $date = 'Date';
+    public $id;
+    public $product_id;
+    public $comment_text;
+    public $stars;
+    public $date;
 
     // constructor with $db as database connection
     public function __construct($db)
@@ -26,19 +26,19 @@ class Comment
         $this->conn = $db;
     }
 
-    public function readCommentsById($product_id, $order_by, $order_dir)
+    public function readComments($product_id, $order_by, $order_dir)
     {
 
         // select query
-        $query = "SELECT $this->id, $this->product_id, $this->comment_text, $this->stars
+        $query = "SELECT Id, Product_Id, Comment_Text, Stars
                   FROM $this->table_name
-                  WHERE $this->product_id = $product_id
+                  WHERE Product_Id = $product_id
                   ORDER BY $order_by $order_dir";
 
-        /*// select query
-        $query = "SELECT $this->id, $this->product_id, $this->comment_text, $this->stars, $this->date
+        /*       // select query
+        $query = "SELECT Id, Product_Id, Comment_Text, Stars, Date
                   FROM $this->table_name
-                  WHERE $this->product_id = $product_id
+                  WHERE Product_Id = $product_id
                   ORDER BY $order_by $order_dir";*/
 
         // prepare query statement
@@ -48,5 +48,37 @@ class Comment
         $stmt->execute();
 
         return $stmt;
+    }
+
+    public function createComment()
+    {
+        // query to insert record
+        $query = "INSERT INTO $this->table_name (Product_Id, Comment_Text, Stars)
+                  VALUES ($this->product_id, $this->comment_text, $this->stars)";
+
+        echo $query;
+
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $this->product_id = htmlspecialchars(strip_tags($this->product_id));
+        $this->comment_text = htmlspecialchars(strip_tags($this->comment_text));
+        $this->stars = htmlspecialchars(strip_tags($this->stars));
+        //  $this->date = htmlspecialchars(strip_tags($this->date));
+
+        // bind values
+        $stmt->bindParam(":Product_id", $this->product_id);
+        $stmt->bindParam(":Comment_Text", $this->comment_text);
+        $stmt->bindParam(":Stars", $this->stars);
+        //  $stmt->bindParam(":Date", $this->date);
+
+        // execute query
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+
     }
 }

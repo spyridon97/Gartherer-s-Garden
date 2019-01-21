@@ -31,7 +31,7 @@ if ($product_id != -1) {
     // reading comments
 
     // query comments
-    $stmt = $comment->readCommentsById($product_id, $order_by, $order_dir);
+    $stmt = $comment->readComments($product_id, $order_by, $order_dir);
     $num = $stmt->rowCount();
 
     // check if more than 0 record found

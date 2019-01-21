@@ -36,7 +36,7 @@ $records_per_page = 10;
 $from_record_num = ($records_per_page * $page) - $records_per_page;
 
 
-/**  parameters passed through PHP URL for api/getCommentsById.php **/
+/**  parameters passed through PHP URL for api/getComments.php **/
 
 //  you set the product_id of the product
 $product_id = isset($_GET["product_id"]) ? $_GET["product_id"] : -1;
