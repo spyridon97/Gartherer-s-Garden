@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Φιλοξενητής: 127.0.0.1
--- Χρόνος δημιουργίας: 22 Ιαν 2019 στις 22:58:17
+-- Χρόνος δημιουργίας: 22 Ιαν 2019 στις 23:49:25
 -- Έκδοση διακομιστή: 10.1.37-MariaDB
 -- Έκδοση PHP: 7.3.0
 
@@ -62,7 +62,7 @@ CREATE TABLE `products` (
   `Id` int(11) NOT NULL,
   `Name` varchar(150) NOT NULL,
   `Price` int(11) NOT NULL,
-  `Type` enum('Plasmid','Gene Tonic','','') NOT NULL,
+  `Type` enum('Plasmid','Gene Tonic') NOT NULL,
   `Image` varchar(200) NOT NULL,
   `Quote` varchar(600) NOT NULL,
   `Effect` varchar(600) NOT NULL,
