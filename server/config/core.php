@@ -15,6 +15,8 @@ error_reporting(E_ALL);
 
 /**  parameters passed through PHP URL for api/getProducts.php **/
 
+//  you set the type e.g.  Plasmid, Gene Tonic,
+$type = $_GET["type"];
 //  you set the minimum price of the product
 $price_min = isset($_GET["price_min"]) ? $_GET["price_min"] : 0;
 //  you set the maximum price of the product
@@ -27,8 +29,6 @@ $order_dir = isset($_GET["order_dir"]) ? $_GET["order_dir"] : "ASC";
 $casting_cost_min = isset($_GET["casting_cost_min"]) ? $_GET["casting_cost_min"] : 0;
 //  you set the maximum casting_cost of the product
 $casting_cost_max = isset($_GET["casting_cost_max"]) ? $_GET["casting_cost_max"] : 2147483647;
-//  you set the type e.g.  Plasmid, Gene Tonic,
-$type = $_GET["type"];
 //  you set the page of the results
 $page = isset($_GET["page"]) ? $_GET["page"] : 1;
 
