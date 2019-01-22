@@ -35,7 +35,6 @@ if (!empty($data->product_id) && !empty($data->comment_text) && !empty($data->st
         $comment->product_id = intval($data->product_id);
         $comment->comment_text = $data->comment_text;
         $comment->stars = intval($data->stars);
-        $comment->date = date('Y-m-d H:i:s');
 
         // create the product
         if ($comment->createComment()) {

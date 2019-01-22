@@ -31,8 +31,8 @@ $utilities = new Utilities();
 //  reading products
 
 //  query products
-$stmt = $product->readProducts($price_min, $price_max, $casting_cost_min, $casting_cost_max,
-    $order_by, $order_dir, $from_record_num, $records_per_page);
+$stmt = $product->readProducts($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max,
+                                $order_by, $order_dir, $from_record_num, $records_per_page);
 $num = $stmt->rowCount();
 
 // check if more than 0 record found
@@ -52,6 +52,7 @@ if ($num > 0) {
             "id" => intval($Id),
             "name" => html_entity_decode($Name),
             "price" => intval($Price),
+            "type" => html_entity_decode($Type),
             "ad" => "/images/Ads/{$Image}",
             "bottle" => "/images/Bottles/{$Image}",
             "sprite" => "/images/Sprites/{$Image}",
@@ -62,7 +63,7 @@ if ($num > 0) {
         array_push($results["products"], $product_item);
     }
 
-    $total_rows = $product->count($price_min, $price_max, $casting_cost_min, $casting_cost_max);
+    $total_rows = $product->count($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max);
     $paging = $utilities->getPaging($page, $total_rows, $records_per_page);
     $results["number_of_results"] = intval($total_rows);
     $results["paging"] = $paging;

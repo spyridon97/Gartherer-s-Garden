@@ -28,15 +28,6 @@ class Comment
 
     public function readComments($product_id, $order_by, $order_dir)
     {
-
-        // select query
-        /*
-        $query = "SELECT Id, Product_Id, Comment_Text, Stars
-                  FROM $this->table_name
-                  WHERE Product_Id = $product_id
-                  ORDER BY $order_by $order_dir";
-        */
-
         // select query
         $query = "SELECT Id, Product_Id, Comment_Text, Stars, Date
                   FROM $this->table_name
@@ -55,13 +46,8 @@ class Comment
     public function createComment()
     {
         // query to insert record
-        /*
-        $query = "INSERT INTO $this->table_name (Product_Id, Comment_Text, Stars)
-                  VALUES ($this->product_id, '{$this->comment_text}', $this->stars)";
-        */
-
         $query = "INSERT INTO $this->table_name (Product_Id, Comment_Text, Stars, Date)
-                  VALUES ($this->product_id, '$this->comment_text', $this->stars, '$this->date')";
+                  VALUES ($this->product_id, '$this->comment_text', $this->stars, CURDATE())";
 
 
         // prepare query
