@@ -6,12 +6,12 @@
  * Time: 11:17 am
  */
 
-// show error reporting
+//  show error reporting
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// home page url
-$home_url = "http://localhost/";
+//  the home page url
+//  $home_url = "http://localhost/";
 
 /**  parameters passed through PHP URL for api/getProducts.php **/
 
@@ -30,9 +30,9 @@ $casting_cost_max = isset($_GET["casting_cost_max"]) ? $_GET["casting_cost_max"]
 //  you set the page of the results
 $page = isset($_GET["page"]) ? $_GET["page"] : 1;
 
-// set number of records per page
+//  set number of records per page
 $records_per_page = 10;
-// calculate for the query LIMIT clause
+//  calculate for the query LIMIT clause
 $from_record_num = ($records_per_page * $page) - $records_per_page;
 
 

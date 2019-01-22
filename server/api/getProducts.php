@@ -12,25 +12,25 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // connecting with database
 
-// include database and object files
+//  include database and object files
 include_once '../config/core.php';
 include_once '../shared/Utilities.php';
 include_once '../config/Database.php';
 include_once '../objects/Product.php';
 
-// instantiate database and product object
+//  instantiate database and product object
 $database = new Database();
 $db = $database->getConnection();
 
-// initialize object
+//  initialize object
 $product = new Product($db);
 
-// utilities
+//  utilities
 $utilities = new Utilities();
 
-// reading products
+//  reading products
 
-// query products
+//  query products
 $stmt = $product->readProducts($price_min, $price_max, $casting_cost_min, $casting_cost_max,
     $order_by, $order_dir, $from_record_num, $records_per_page);
 $num = $stmt->rowCount();
@@ -52,9 +52,9 @@ if ($num > 0) {
             "id" => intval($Id),
             "name" => html_entity_decode($Name),
             "price" => intval($Price),
-            "ad" => "{$home_url}images/Ads/{$Image}",
-            "bottle" => "{$home_url}images/Bottles/{$Image}",
-            "sprite" => "{$home_url}images/Sprites/{$Image}",
+            "ad" => "../../images/Ads/{$Image}",
+            "bottle" => "../../images/Bottles/{$Image}",
+            "sprite" => "../../images/Sprites/{$Image}",
             "quote" => html_entity_decode($Quote),
             "effect" => html_entity_decode($Effect),
             "casting_cost" => intval($Casting_Cost)
