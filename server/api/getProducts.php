@@ -52,9 +52,9 @@ if ($num > 0) {
             "id" => intval($Id),
             "name" => html_entity_decode($Name),
             "price" => intval($Price),
-            "ad" => "../../images/Ads/{$Image}",
-            "bottle" => "../../images/Bottles/{$Image}",
-            "sprite" => "../../images/Sprites/{$Image}",
+            "ad" => "/images/Ads/{$Image}",
+            "bottle" => "/images/Bottles/{$Image}",
+            "sprite" => "/images/Sprites/{$Image}",
             "quote" => html_entity_decode($Quote),
             "effect" => html_entity_decode($Effect),
             "casting_cost" => intval($Casting_Cost)
