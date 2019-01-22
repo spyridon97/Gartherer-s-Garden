@@ -41,7 +41,7 @@ $from_record_num = ($records_per_page * $page) - $records_per_page;
 
 //  you set the product_id of the product
 $product_id = isset($_GET["product_id"]) ? $_GET["product_id"] : -1;
-//  you set the ordering column e.g. Stars, Id, Date (When Date will be added)
+//  you set the ordering column e.g. Date, Stars, Id,
 $order_by = isset($_GET["order_by"]) ? $_GET["order_by"] : "Id";
 //  you set the ordering direction e.g. ASC, DESC
 $order_dir = isset($_GET["order_dir"]) ? $_GET["order_dir"] : "ASC";

@@ -30,16 +30,18 @@ class Comment
     {
 
         // select query
+        /*
         $query = "SELECT Id, Product_Id, Comment_Text, Stars
                   FROM $this->table_name
                   WHERE Product_Id = $product_id
                   ORDER BY $order_by $order_dir";
+        */
 
-        /*       // select query
+        // select query
         $query = "SELECT Id, Product_Id, Comment_Text, Stars, Date
                   FROM $this->table_name
                   WHERE Product_Id = $product_id
-                  ORDER BY $order_by $order_dir";*/
+                  ORDER BY $order_by $order_dir";
 
         // prepare query statement
         $stmt = $this->conn->prepare($query);
@@ -53,13 +55,14 @@ class Comment
     public function createComment()
     {
         // query to insert record
+        /*
         $query = "INSERT INTO $this->table_name (Product_Id, Comment_Text, Stars)
                   VALUES ($this->product_id, '{$this->comment_text}', $this->stars)";
+        */
 
-        /*
         $query = "INSERT INTO $this->table_name (Product_Id, Comment_Text, Stars, Date)
                   VALUES ($this->product_id, '$this->comment_text', $this->stars, '$this->date')";
-        */
+
 
         // prepare query
         $stmt = $this->conn->prepare($query);
@@ -68,13 +71,13 @@ class Comment
         $this->product_id = htmlspecialchars(strip_tags($this->product_id));
         $this->comment_text = htmlspecialchars(strip_tags($this->comment_text));
         $this->stars = htmlspecialchars(strip_tags($this->stars));
-        //  $this->date = htmlspecialchars(strip_tags($this->date));
+        $this->date = htmlspecialchars(strip_tags($this->date));
 
         // bind values
         $stmt->bindParam(":Product_id", $this->product_id);
         $stmt->bindParam(":Comment_Text", $this->comment_text);
         $stmt->bindParam(":Stars", $this->stars);
-        //  $stmt->bindParam(":Date", $this->date);
+        $stmt->bindParam(":Date", $this->date);
 
         // execute query
         if ($stmt->execute()) {

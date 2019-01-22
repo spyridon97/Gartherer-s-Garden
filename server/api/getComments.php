@@ -52,7 +52,7 @@ if ($product_id != -1) {
                 "product_id" => intval($Product_Id),
                 "comment_text" => html_entity_decode($Comment_Text),
                 "stars" => intval($Stars),
-                //  "date" => html_entity_decode($Date)
+                "date" => html_entity_decode($Date)
             );
             array_push($results["comments"], $comment_item);
         }
