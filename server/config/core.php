@@ -13,6 +13,13 @@ error_reporting(E_ALL);
 //  the home page url
 //  $home_url = "http://localhost/";
 
+/**  parameters passed through PHP URL for api/getProduct.php **/
+//  product_id is REQUIRED
+
+//  you set the product_id of the product
+$id = isset($_GET["id"]) ? $_GET["id"] : -1;
+
+
 /**  parameters passed through PHP URL for api/getProducts.php **/
 
 //  you set the type e.g.  Plasmid, Gene Tonic,

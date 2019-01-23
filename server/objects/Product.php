@@ -34,7 +34,7 @@ class Product
                                  $order_by, $order_dir, $from_record_num, $records_per_page)
     {
         // query
-        if($type != "") {
+        if ($type != "") {
             $query = "SELECT Id, Name, Price, Image, Quote, Effect, Casting_Cost, Type
                   FROM $this->table_name
                   WHERE Type = '$type' AND Price >= $price_min AND Price <= $price_max AND 
@@ -59,9 +59,28 @@ class Product
         return $stmt;
     }
 
+    public function readProduct($id)
+    {
+        $query = "SELECT Id, Name, Price, Image, Quote, Effect, Casting_Cost, Type
+                  FROM $this->table_name
+                  WHERE Id = '$id'
+                  LIMIT 0, 1";
+
+        // prepare query statement
+        $stmt = $this->conn->prepare( $query );
+
+        // bind id of product to be updated
+        $stmt->bindParam(1, $this->id);
+
+        // execute query
+        $stmt->execute();
+
+        return $stmt;
+    }
+
     public function count($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max)
     {
-        if($type != "") {
+        if ($type != "") {
             $query = "SELECT COUNT(*) as total_rows
                   FROM $this->table_name
                   WHERE Type = '$type' AND Price >= $price_min AND Price <= $price_max AND 
