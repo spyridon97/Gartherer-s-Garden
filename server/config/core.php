@@ -16,7 +16,7 @@ error_reporting(E_ALL);
 /**  parameters passed through PHP URL for api/getProducts.php **/
 
 //  you set the type e.g.  Plasmid, Gene Tonic,
-$type = $_GET["type"];
+$type = isset($_GET["type"]) ? $_GET["type"] : "";
 //  you set the minimum price of the product
 $price_min = isset($_GET["price_min"]) ? $_GET["price_min"] : 0;
 //  you set the maximum price of the product
