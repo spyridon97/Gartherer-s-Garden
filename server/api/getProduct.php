@@ -11,7 +11,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 //  include database and object files
-include_once '../config/core.php';
+include_once 'apiDocumentation.php';
 include_once '../shared/Utilities.php';
 include_once '../config/Database.php';
 include_once '../objects/Product.php';
@@ -63,18 +63,11 @@ if ($id > 0) {
             array("message" => "No product found.")
         );
     }
-} else if ($id == "") {
+} else {
     //  set response code - 422 Missing parameter id
     http_response_code(422);
 
     echo json_encode(
-        array("message" => "Missing parameter id.")
-    );
-} else {
-    //  set response code - 422 invalid value of parameter id
-    http_response_code(400);
-
-    echo json_encode(
-        array("message" => "Invalid value of parameter id.")
+        array("message" => "Missing parameter id or invalid value.")
     );
 }

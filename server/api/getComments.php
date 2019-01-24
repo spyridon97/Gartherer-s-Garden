@@ -12,7 +12,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 //  include database and object files
-include_once '../config/core.php';
+include_once 'apiDocumentation.php';
 include_once '../shared/Utilities.php';
 include_once '../config/Database.php';
 include_once '../objects/Comment.php';
@@ -22,7 +22,7 @@ $database = new Database();
 //  connecting with database
 $db = $database->getConnection();
 
-if ($product_id != -1) {
+if ($product_id > 0) {
     //  initialize comment object
     $comment = new Comment($db);
 

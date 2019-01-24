@@ -10,7 +10,25 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-/**  parameters passed through PHP URL for server/api/getComments.php **/
+
+/** parameters passed through PHP URL for server/api/deleteFromCart.php **/
+//  id is REQUIRED
+
+//  you set the id of the product e.g. 1
+$id = isset($_GET["id"]) ? $_GET["id"] : -1;
+
+
+/** parameters passed through PHP URL for server/api/deleteFromCartOnce.php **/
+//  id is REQUIRED
+
+//  you set the id of the product e.g. 1
+$id = isset($_GET["id"]) ? $_GET["id"] : -1;
+
+
+/** server/api/deleteFromCartOnce.php does not need any parameter**/
+
+
+/** parameters passed through PHP URL for server/api/getComments.php **/
 //  product_id is REQUIRED
 
 //  you set the product_id of the product
@@ -20,14 +38,15 @@ $order_by = isset($_GET["order_by"]) ? $_GET["order_by"] : "Id";
 //  you set the ordering direction e.g. ASC, DESC
 $order_dir = isset($_GET["order_dir"]) ? $_GET["order_dir"] : "ASC";
 
-/**  parameters passed through PHP URL for server/api/getProduct.php **/
-//  product_id is REQUIRED
 
-//  you set the product_id of the product e.g. 1
-$id = isset($_GET["id"]) ? $_GET["id"] : "";
+/** parameters passed through PHP URL for server/api/getProduct.php **/
+//  id is REQUIRED
+
+//  you set the id of the product e.g. 1
+$id = isset($_GET["id"]) ? $_GET["id"] : -1;
 
 
-/**  parameters passed through PHP URL for server/api/getProducts.php **/
+/** parameters passed through PHP URL for server/api/getProducts.php **/
 
 //  you set the type e.g. Plasmid, Gene Tonic,
 $type = isset($_GET["type"]) ? $_GET["type"] : "";
@@ -52,6 +71,15 @@ $page = isset($_GET["page"]) ? $_GET["page"] : 1;
 $records_per_page = 10;
 //  calculate for the query LIMIT clause
 $from_record_num = ($records_per_page * $page) - $records_per_page;
+
+
+/** JSON example of server/api/postCart.php */
+
+/*
+{
+    "id" : 4
+}
+*/
 
 
 /** JSON example of server/api/postComment.php */
