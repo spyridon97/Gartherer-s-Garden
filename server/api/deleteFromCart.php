@@ -2,6 +2,9 @@
 // required headers
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Max-Age: 3600");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 //  get database connection
 include_once 'apiDocumentation.php';
@@ -12,15 +15,18 @@ $database = new Database();
 //  get database connection
 $db = $database->getConnection();
 
+//  get product id
+$data = json_decode(file_get_contents("php://input"));
+
 //  make sure we were given an id parameter
-if ($id > 0) {
+if ($data->id > 0) {
 
     session_start();
     if (isset($_SESSION["cart"])) {
 
         //  if id in cart we remove it completely
-        if (in_array($id, $_SESSION["cart"])) {
-            $_SESSION["cart"] = array_diff($_SESSION["cart"], [$id]);
+        if (in_array($data->id, $_SESSION["cart"])) {
+            $_SESSION["cart"] = array_diff($_SESSION["cart"], [$data->id]);
 
             //  set response code - 200 OK
             http_response_code(200);

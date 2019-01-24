@@ -11,21 +11,24 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 
-/** parameters passed through PHP URL for server/api/deleteFromCart.php **/
-//  id is REQUIRED
+/** JSON example of server/api/deleteFromCart.php **/
 
-//  you set the id of the product e.g. 1
-$id = isset($_GET["id"]) ? $_GET["id"] : -1;
-
-
-/** parameters passed through PHP URL for server/api/deleteFromCartOnce.php **/
-//  id is REQUIRED
-
-//  you set the id of the product e.g. 1
-$id = isset($_GET["id"]) ? $_GET["id"] : -1;
+/*
+{
+    "id" : 4
+}
+*/
 
 
-/** server/api/deleteFromCartOnce.php does not need any parameter**/
+/** JSON example of server/api/deleteFromCartOnce.php **/
+
+/*
+{
+    "id" : 4
+}
+*/
+
+/** server/api/getCart.php does not need any parameter **/
 
 
 /** parameters passed through PHP URL for server/api/getComments.php **/
@@ -73,7 +76,7 @@ $records_per_page = 10;
 $from_record_num = ($records_per_page * $page) - $records_per_page;
 
 
-/** JSON example of server/api/postCart.php */
+/** JSON example of server/api/postCart.php **/
 
 /*
 {
@@ -82,7 +85,7 @@ $from_record_num = ($records_per_page * $page) - $records_per_page;
 */
 
 
-/** JSON example of server/api/postComment.php */
+/** JSON example of server/api/postComment.php **/
 
 /*
 {
