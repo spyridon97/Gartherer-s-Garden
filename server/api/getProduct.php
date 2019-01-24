@@ -40,9 +40,9 @@ if ($id > 0) {
             "name" => html_entity_decode($row['Name']),
             "price" => intval($row['Price']),
             "type" => html_entity_decode($row['Type']),
-            "ad" => "/images/Ads/{$row['Image']}",
-            "bottle" => "/images/Bottles/{$row['Image']}",
-            "sprite" => "/images/Sprites/{$row['Image']}",
+            "ad" => (file_exists("../../images/Ads/{$row['Image']}")) ? html_entity_decode("/images/Ads/{$row['Image']}") : "",
+            "bottle" => (file_exists("../../images/Bottles/{$row['Image']}")) ? html_entity_decode("/images/Bottles/{$row['Image']}") : "",
+            "sprite" => (file_exists("../../images/Sprites/{$row['Image']}")) ? html_entity_decode("/images/Sprites/{$row['Image']}") : "",
             "quote" => html_entity_decode($row['Quote']),
             "effect" => html_entity_decode($row['Effect']),
             "casting_cost" => intval($row['Casting_Cost'])
