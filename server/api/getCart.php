@@ -1,4 +1,9 @@
 <?php
+
+// required headers
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
+
 include_once '../config/Database.php';
 include_once 'apiDocumentation.php';
 include_once '../objects/Product.php';
