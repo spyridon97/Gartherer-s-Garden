@@ -20,14 +20,14 @@ $db = $database->getConnection();
 $data = json_decode(file_get_contents("php://input"));
 
 // make sure we were given an id parameter
-if ($this->id > 0) {
+if ($data->id > 0) {
 
     session_start();
     //  if we have previously added products to the cart
     if (isset($_SESSION["cart"])) {
-        if (in_array($this->id, $_SESSION["cart"])) {
+        if (in_array($data->id, $_SESSION["cart"])) {
             //  find product in the array and get its key
-            $key = array_search($this->id, $_SESSION["cart"]);
+            $key = array_search($data->id, $_SESSION["cart"]);
 
             //  remove only one element from the array using the key
             unset($_SESSION["cart"][$key]);
