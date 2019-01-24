@@ -7,16 +7,41 @@
     <meta name="description" content="In the garden we are growin'/Many changes will be flowin'/If you want to be amazin'/See the flowers we are raisin'">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="scripts/load_items.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+
+    <script defer src="scripts/shop_animations.js"></script>
+    <script defer src="scripts/load_items.js"></script>
 </head>
 <body>
-    <!-- <section id="landing">
+    <section id="landing">
 
-    </section> -->
+    </section>
     <section id="shop">
-        
-        <div id="items-container">
-            
+        <div id="filter-modal" class="none">
+            <form id="filters">
+                <p>Price</p>
+                <input id="input_price_min" type="text" placeholder="from"/>
+                <input id="input_price_max" type="text" placeholder="to"/>
+                <p>Casting cost</p>
+                <input id="input_cast_min" type="text" placeholder="from"/>
+                <input id="input_cast_max" type="text" placeholder="to"/>
+                <p>Type</p>
+                <input id="input_plasmid" name="plasmid" type="checkbox" value="Plasmid" checked>
+                <label for="plasmid">Plasmid</label>
+                <input id="input_tonic" name="gene_tonic" type="checkbox" value="Gene Tonic" checked> 
+                <label for="gene_tonic">Gene Tonic</label>
+                <br>
+                <button type="button" onclick="onFilterGoPressed(event)">Go</button>
+            </form>
+        </div>
+
+        <div id="shop-container">
+            <button id="cart">Cart</button>
+            <button id="filter-btn" onclick="showFilters()">Filter</button>
+            <div id="products-container">
+                <!--Async content loading-->
+            </div>
+            <div id="page-number-container"></div>
         </div>
     </section>
 </body>

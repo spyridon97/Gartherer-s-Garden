@@ -1,6 +1,18 @@
 html, body {
+  font-family: 'Righteous', cursive;
   height: 100%;
   margin: 0;
+}
+
+p {
+  margin: 10px;
+}
+
+section {
+  background-color: black;
+  box-sizing: border-box;
+  position: relative;
+  height: 100vh; width: 100%;
 }
 
 section#landing {
@@ -8,5 +20,263 @@ section#landing {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+button {
+  cursor: pointer;
+  font-family: 'Righteous', cursive;
+}
+
+.appear {
+  display: block;
+  opacity: 1;
+}
+
+.disappear {
+  opacity: 0;
+  transition: opacity 1s linear;
+}
+
+.none {
+  display: none;
+  opacity: 0;
+}
+
+/* Shop page */
+
+section#shop {
+  align-items: center;
+  background-image: url('./images/General/hidden-back.jpg'), linear-gradient(120deg, #006994 0%, #003348 100%);
+  background-size: cover;
+  background-position: top;
+  background-blend-mode: screen;
+  display: flex;
+  font-family: 'Righteous', cursive;
+  flex-direction: column;
+}
+
+#cart {
+  position: absolute;
+  right: 0; top: 0;
+}
+
+#filter-btn {
+  background: 0;
+  border: 0;
+  color: white;
+  font-variant: small-caps;
+  font-size: 1.2rem; 
+  margin-bottom: 10px;
+}
+
+#shop-container {
+  align-items: center;
+  background-color: black;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
   height: 100%; width: 100%;
+  position: absolute;
+}
+
+#products-container {
+  background-color: black;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(2, 1fr); 
+  gap: 10px; 
+  height: auto; width: 100%;
+  min-height: 70%;
+}
+
+.product {
+  animation: appear 1s linear;
+  align-items: center;
+  background-color: black;
+  border: solid 8px #DAA520;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.product .flipper{
+  height: 140px; width: 100%;
+  position: relative;
+  transition: .3s;
+  transform-style: preserve-3d;
+}
+
+.product:hover .flipper {
+  height: 100%;
+  transform: rotateY(180deg);
+  transition: .6s;
+}
+
+.product:hover .name, .product:hover .price {
+  animation: fade-out .6s linear;
+  position: absolute;
+  top: 1000px;
+  
+}
+
+@keyframes fade-out {
+  0% {
+    top: 200px;
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    top: 250px;
+  }
+}
+
+.product .flipper img {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.product .flipper img.bottle {
+  height: 100%; width: auto;
+  transform: translateX(-50%) rotateY(180deg);
+}
+
+.product .name {
+  color: #E77B16;
+  font-size: 1.6rem;
+}
+
+.product .price {
+  color: white;
+}
+
+#page-number-container {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-top: 10px;
+}
+
+#page-number-container button {
+  background: 0;
+  border: 0;
+  border-bottom: solid 2px white;
+  box-sizing: border-box;
+  color: white;
+  font-size: 1.4rem;
+  margin-left: 5px;
+}
+
+#page-number-container button.selected {
+  background-color: #DAA520;
+  border: 0;
+  color: black;
+}
+
+#page-number-container button:hover {
+  border: solid 2px #DAA520;
+}
+
+/*----| filter modal*/
+#filter-modal {
+  background: 0;
+  display: flex;
+  height: 40vh;
+  overflow: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+}
+
+#filter-modal.appear + #shop-container {
+  bottom: -20%;
+  position: absolute;
+  box-shadow: 0 0 20px black;
+  transform: scale(0.5);
+  transition: 1s;
+}
+
+#filter-modal.none + #shop-container {
+  position: absolute;
+  transform: scale(1);
+  transition: 1s;
+}
+
+#filter-modal p {
+  margin: 10px 0; 
+}
+
+#filter-modal input[type=text] {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: solid 2px #353535;
+  border-radius: 5px;
+  height: 25px;
+}
+
+#filter-modal input[type=checkbox] {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: solid 1px #353535;
+  border-radius: 50%;
+  height: 20px; width: 20px;
+  position: relative;
+}
+
+#filter-modal input[type=checkbox]:checked::after {
+	content: '\25CF';
+	font-size: 14px;
+	position: absolute;
+	top: 0px;
+	left: 5px;
+	color: #353535;
+}
+
+#filter-modal button {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: solid 2px #353535;
+  border-radius: 5px;
+  height: 30px; width: 50px;
+  margin-top: 10px;
+  position: relative;
+}
+
+#filter-modal button:hover {
+  background-color: black;
+  border: 0;
+}
+
+#filter-modal button:hover::after {
+  animation: btn-slide-in .3s ease-out;  
+  background-image: url('./images/General/arrow-right-solid.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  content: '';
+  height: 100%; width: 100%;
+  left: 0; top: 0;
+  overflow: hidden;
+  position: absolute;
+}
+
+@keyframes btn-slide-in {
+  0% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
