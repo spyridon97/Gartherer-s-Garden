@@ -11,7 +11,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 
-/** JSON example of server/api/deleteFromCart.php **/
+/** JSON example of server/api/deleteFromCart.php, , Function : Post **/
 
 /*
 {
@@ -20,7 +20,7 @@ error_reporting(E_ALL);
 */
 
 
-/** JSON example of server/api/deleteFromCartOnce.php **/
+/** JSON example of server/api/deleteFromCartOnce.php, Function : Post  **/
 
 /*
 {
@@ -28,10 +28,10 @@ error_reporting(E_ALL);
 }
 */
 
-/** server/api/getCart.php does not need any parameter **/
+/** server/api/getCart.php does not need any parameter, Function : Get **/
 
 
-/** parameters passed through PHP URL for server/api/getComments.php **/
+/** parameters passed through PHP URL for server/api/getComments.php, Function : Get **/
 //  product_id is REQUIRED
 
 //  you set the product_id of the product
@@ -42,14 +42,14 @@ $order_by = isset($_GET["order_by"]) ? $_GET["order_by"] : "Id";
 $order_dir = isset($_GET["order_dir"]) ? $_GET["order_dir"] : "ASC";
 
 
-/** parameters passed through PHP URL for server/api/getProduct.php **/
+/** parameters passed through PHP URL for server/api/getProduct.php, Function : Get **/
 //  id is REQUIRED
 
 //  you set the id of the product e.g. 1
 $id = isset($_GET["id"]) ? $_GET["id"] : -1;
 
 
-/** parameters passed through PHP URL for server/api/getProducts.php **/
+/** parameters passed through PHP URL for server/api/getProducts.php, Function : Get **/
 
 //  you set the type e.g. Plasmid, Gene Tonic,
 $type = isset($_GET["type"]) ? $_GET["type"] : "";
@@ -76,7 +76,7 @@ $records_per_page = 10;
 $from_record_num = ($records_per_page * $page) - $records_per_page;
 
 
-/** JSON example of server/api/postCart.php **/
+/** JSON example of server/api/postCart.php, Function : Post **/
 
 /*
 {
@@ -85,7 +85,7 @@ $from_record_num = ($records_per_page * $page) - $records_per_page;
 */
 
 
-/** JSON example of server/api/postComment.php **/
+/** JSON example of server/api/postComment.php, Function : Post **/
 
 /*
 {
