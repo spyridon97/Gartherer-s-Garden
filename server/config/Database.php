@@ -8,14 +8,14 @@
 
 class Database
 {
-    // specify your own database credentials
+    //  specify your own database credentials
     private $host = "localhost";
     private $db_name = "ergasiab";
     private $username = "ErgasiaB";
     private $password = "2019BErgasia";
     public $conn;
 
-    // get the database connection
+    //  get the database connection
     public function getConnection()
     {
 

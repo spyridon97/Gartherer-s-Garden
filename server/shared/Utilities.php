@@ -10,7 +10,7 @@ class Utilities
 {
     public function getPaging($page, $total_rows, $records_per_page)
     {
-        // count all products in the database to calculate total pages
+        //  count all products in the database to calculate total pages
         $total_pages = ceil($total_rows / $records_per_page);
 
         $paging_arr[] = array();
@@ -20,7 +20,6 @@ class Utilities
             if (($x > 0) && ($x <= $total_pages)) {
                 $paging_arr[$page_count]["page"] = $x;
                 $paging_arr[$page_count]["current_page"] = $x == $page ? "yes" : "no";
-
                 $page_count++;
             }
         }
