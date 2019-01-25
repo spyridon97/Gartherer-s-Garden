@@ -32,6 +32,9 @@ $results["quantities"] = array();
 // make sure we were given an id parameter
 if ($data->id > 0) {
 
+    //  initialize product object
+    $productsController = new ProductsController($db);
+    
     //  start session
     session_start();
 
@@ -47,10 +50,6 @@ if ($data->id > 0) {
             //  set response code - 200 OK
             http_response_code(200);
 
-            $productsController = new ProductsController($db);
-
-            //  reading product
-
             //  query product
             $stmt = $productsController->getProduct($data->id);
             $num = $stmt->rowCount();
@@ -58,7 +57,7 @@ if ($data->id > 0) {
             //  get retrieved row
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             
-            //  return product json
+            //  return product
             $product_item = array(
             "id" => intval($row['Id']),
             "name" => html_entity_decode($row['Name']),
@@ -73,7 +72,7 @@ if ($data->id > 0) {
             );
             
             array_push($results["products"], $product_item);
-          
+            //we check if product exists in cart
             $tmp = array_count_values($_SESSION["cart"]);
             if (!empty($tmp[$data->id])) {
                 $quantity = $tmp[$data->id];
@@ -81,7 +80,7 @@ if ($data->id > 0) {
             }else{
                 array_push($results["quantities"], 0);
             }
-            
+            //we return json with product and quantity
             echo json_encode($results);
             
         } else {
