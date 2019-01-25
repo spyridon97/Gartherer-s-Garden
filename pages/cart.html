@@ -1,17 +1,25 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Cart</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-    </head>
+        <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+        <link rel="stylesheet" href="../main.css">
+
+        <script defer src="../scripts/load_cart.js"></script>
+</head>
     <body>
-        <main>
+        <main id="cart">
+            <h1>Cart</h1>
+            <h2>A step closer on becoming a great man</h2>
+            <button id="back-btn" onclick="window.location.href = '../'"></button>
             <ul id="cart-list">
-                <li class="cart-product"></li>
+                <!--Async content loading-->
             </ul>
+
+            <button class="checkout">checkout</button>
         </main>
     </body>
 </html>

@@ -17,7 +17,7 @@ function loadProductInfo(id) {
       } else {
         image.parentElement.removeChild(image);
       }
-      document.getElementsByClassName('quote')[0].innerHTML = json['quote'];
+      document.getElementsByClassName('quote')[0].innerHTML ='"'+json['quote']+'"';
 
       document.getElementById('title').innerHTML = json['name'];
       document.title = json['name'];

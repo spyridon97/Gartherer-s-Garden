@@ -60,7 +60,7 @@ section#shop {
   flex-direction: column;
 }
 
-#cart {
+button#cart {
   background-color: transparent;
   background-image: url('./images/General/shopping-cart-solid.svg');
   background-size: contain;
@@ -296,7 +296,9 @@ section#shop {
 /* ProductsController page */
 
 section#advert {
+  cursor: pointer;
   overflow: hidden;
+  z-index: 2;
 }
 
 .outer-scratch, .inner-scratch {
@@ -373,13 +375,16 @@ section#product-info {
 #back-btn {
   background-color: #DAA520;
   border: 0;
-  height: 50px; width: 30px;
+  height: 80px; width: 80px;
   left: 0; top:0;
   position: absolute;
+  transform: rotate(45deg) translate(-70%, 0);
+  transition: .6s;
 }
 
 #back-btn:hover {
   height: 110px; width: 110px;
+  transform: rotate(0);
   transition: .6s;
 }
 
@@ -503,23 +508,62 @@ section#product-info > #carousel {
   align-items: center;
   display: flex;
   position: relative;
-  height: 50px; width: 30vw;
+  height: 50px; 
   justify-content: space-between;
   margin-top: 30px;
 }
 
-#info > #buy-container > button#add-cart {
+#info > #buy-container > .buy-action {
+  align-items: center; 
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+#info > #buy-container button#add-cart {
   background: 0; 
   border: solid 5px #DAA520;
   font-size: 1.3rem;
   font-variant: small-caps;
   height: 100%;
+  position: relative;
 }
 
-#info > #buy-container > button#add-cart:hover {
+#info > #buy-container button#add-cart:hover {
   background-color: #DAA520;
   color: white;
   transition: .3s linear;
+}
+
+#info > #buy-container button#add-cart.animate::after {
+  background-color: #DAA520;
+  background-image: url('./images/General/check-solid.svg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  content: '';
+  height: 100%; width: 100%;
+  left: 0; top: 0;
+  position: absolute;
+}
+
+#buy-container > .buy-action > #added-text {
+  animation: added-text-fade-in 1s linear;
+  opacity: 1;
+}
+
+@keyframes added-text-fade-in {
+  0% {
+    opacity: 0
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.buy-action > #added-text a {
+  color: #E77B16;
 }
 
 #comments-container {
@@ -587,6 +631,7 @@ section#product-info > #carousel {
   font-variant: small-caps;
   float: right;
   height: 100%;
+  margin: 10px;
 }
 
 /* Cart Page */
@@ -596,7 +641,9 @@ section#product-info > #carousel {
   flex-direction: column;
   height: auto; width: 100%;
 }
+
 #cart h1 {
+  font-size: 3rem;
   font-variant: small-caps;
   position: relative;
 }
@@ -605,6 +652,7 @@ section#product-info > #carousel {
   background-color: black;
   content: '';
   height: 3px; width: 150%;
+  margin-bottom: 0;
   position: absolute;
 }
 
@@ -616,9 +664,75 @@ section#product-info > #carousel {
   bottom: 0; right: -40%;
 }
 
+#cart h2 {
+  margin-top: 0;
+}
+
 li {
   list-style: none;
 }
+
+.cart-product {
+  align-items: center;
+  border: solid 12px #DAA520;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 50vw;
+}
+
+.cart-product img {
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.cart-product .info-container {
+  cursor: pointer;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.cart-product .actions-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 30vw;
+}
+
+.cart-product .actions-container .quantity {
+  border: solid 5px black;
+  display: block;
+  margin: 0;
+  padding: 5px;
+}
+
+.cart-product button {
+  background: 0;
+  border: 0;
+  color: black;
+  font-size: 2rem;
+}
+
+.cart-product button:hover {
+  color: #E77B16;
+  transition: .4s;
+}
+
+.cart-product .actions-container svg.remove {
+  color: black;
+  cursor: pointer;
+  height: 35px; width: auto;
+  margin-left: 10px;
+}
+
+.cart-product .actions-container svg.remove:hover {
+  color: red;
+  transition: .4s;
+}
+
+
 
 /* Animations */
 

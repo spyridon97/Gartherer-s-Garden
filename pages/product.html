@@ -12,16 +12,17 @@
     <script defer src="../scripts/load_product.js"></script>
     <script defet src="../scripts/carousel.js"></script>
     <script defet src="../scripts/post_comment.js"></script>
+    <script defet src="../scripts/add_cart.js"></script>
 </head>
 <body>
     <main>
-        <section id="advert" onclick="document.querySelector('#info').scrollIntoView({ 
+        <section id="advert" onclick="document.querySelector('#product-info').scrollIntoView({ 
             behavior: 'smooth', block: 'start' });">
             <div class='outer-scratch'>
                 <div class="inner-scratch">
                     <div class="advertisment-img grain">
                         <img src="../images/Ads/Enrage.png" alt="Enrage advert" id="adv_img">
-                        <p class="quote">"Developed for use in today's uncertain environment, ENRAGE! will make your victim forget what side he's on, and attack anyone nearby. Just make sure 'anyone' isn't you!"</p>
+                        <p class="quote"></p>
                     </div>
                 </div>
             </div>
@@ -48,7 +49,10 @@
                         <p id="casting-cost"><span class="emp">Casting cost: </span></p>
                         <p id="price"><span class="emp">Price: </span></p>
                     </div>
-                    <button id="add-cart">Add to cart</button>
+                    <div class="buy-action">
+                        <button id="add-cart" onclick="addToCart()">Add to cart</button>
+                        <p id="added-text" class="none">Added! <a href="./cart.html">Proceed to checkout</a></p>
+                    </div>
                 </div>
 
                 <div id="comments-container">
