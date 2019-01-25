@@ -29,6 +29,9 @@ $results = array();
 $results["products"] = array();
 $results["quantities"] = array();
 
+//  initialize product object
+$productsController = new ProductsController($db);
+
 //  make sure data are not empty
 if (!empty($data->id)) {
 
@@ -46,39 +49,37 @@ if (!empty($data->id)) {
         //  set response code - 200 OK
         http_response_code(200);
 
-        //  show products data in json format
-        $productsController = new ProductsController($db);
+        //  reading product
 
-            //  reading product
+        //  query product
+        $stmt = $productsController->getProduct($data->id);
+            
+        //  get retrieved row
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+        //  return product
+        $product_item = array(
+        "id" => intval($row['Id']),
+        "name" => html_entity_decode($row['Name']),
+        "price" => intval($row['Price']),
+        "type" => html_entity_decode($row['Type']),
+        "ad" => (file_exists("../../images/Ads/{$row['Image']}")) ? html_entity_decode("/images/Ads/{$row['Image']}") : "",
+        "bottle" => (file_exists("../../images/Bottles/{$row['Image']}")) ? html_entity_decode("/images/Bottles/{$row['Image']}") : "",
+        "sprite" => (file_exists("../../images/Sprites/{$row['Image']}")) ? html_entity_decode("/images/Sprites/{$row['Image']}") : "",
+        "quote" => html_entity_decode($row['Quote']),
+        "effect" => html_entity_decode($row['Effect']),
+        "casting_cost" => intval($row['Casting_Cost'])
+        );
+            
+        array_push($results["products"], $product_item);
+        //we count how many times the id appears in the cart
+        $tmp = array_count_values($_SESSION["cart"]);
+        $quantity = $tmp[$data->id];
 
-            //  query product
-            $stmt = $productsController->getProduct($data->id);
-            $num = $stmt->rowCount();
-            
-            //  get retrieved row
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            //  return product json
-            $product_item = array(
-            "id" => intval($row['Id']),
-            "name" => html_entity_decode($row['Name']),
-            "price" => intval($row['Price']),
-            "type" => html_entity_decode($row['Type']),
-            "ad" => (file_exists("../../images/Ads/{$row['Image']}")) ? html_entity_decode("/images/Ads/{$row['Image']}") : "",
-            "bottle" => (file_exists("../../images/Bottles/{$row['Image']}")) ? html_entity_decode("/images/Bottles/{$row['Image']}") : "",
-            "sprite" => (file_exists("../../images/Sprites/{$row['Image']}")) ? html_entity_decode("/images/Sprites/{$row['Image']}") : "",
-            "quote" => html_entity_decode($row['Quote']),
-            "effect" => html_entity_decode($row['Effect']),
-            "casting_cost" => intval($row['Casting_Cost'])
-            );
-            
-            array_push($results["products"], $product_item);
-            $tmp = array_count_values($_SESSION["cart"]);
-            $quantity = $tmp[$data->id];
-
-            array_push($results["quantities"], $quantity);
-            
-            echo json_encode($results);
+        array_push($results["quantities"], $quantity);
+        
+        //we return json with the product and its quantity in the cart    
+        echo json_encode($results);
     } else {
         //  set response code - 400 bad request
         http_response_code(400);
