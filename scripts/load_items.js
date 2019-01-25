@@ -137,7 +137,8 @@ function onFilterGoPressed() {
   const plasmid = document.getElementById('input_plasmid').checked;
   const tonic = document.getElementById('input_tonic').checked;
   let type = undefined;
-
+ 
+  filter_url = '';
   // Send the type var only if the user has specified one of the types
   if (plasmid && !tonic) {
     type = 'Plasmid';
