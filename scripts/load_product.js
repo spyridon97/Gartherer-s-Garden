@@ -42,6 +42,12 @@ function loadComments(id) {
   fetch('../server/api/getComments.php?product_id='+id).then((response) =>{
     response.json().then((json) => {
       const comments = json['comments'];
+      if (!comments) {
+        const noComments = document.createElement('p');
+        noComments.innerHTML = 'no comments yet.';
+        document.getElementById('comments').appendChild(noComments);
+        return;
+      }
       for (comment of comments) {
         document.getElementById('comments').appendChild(
             newComment(comment['stars'], comment['date'],
