@@ -21,6 +21,7 @@ class Product {
     );
     const self = document.createElement('div');
     self.classList = 'product';
+    self.onclick = () => openProductPage(id);
     self.innerHTML = html;
     return self;
   }
@@ -51,12 +52,14 @@ function createPageButtons(paging) {
   }
 
   if (paging.length == 3) {
-    // create the necessary button
-    const pageButton = document.createElement('button');
-    pageButton.innerHTML = 2;
-    pageButton.onclick = () => loadPage(2);
-    pageButton.classList = (currentPage == 2) ? 'selected' : '';
-    container.appendChild(pageButton);
+    // create the necessary buttons
+    for (let i = 2; i < paging.length; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.innerHTML = i;
+      pageButton.onclick = () => loadPage(i);
+      pageButton.classList = (currentPage == i) ? 'selected' : '';
+      container.appendChild(pageButton);
+    }
   }
 
   const firstPage = document.createElement('button');
@@ -159,4 +162,16 @@ function applyFilters(minPrice, maxPrice, minCasting, maxCasting, type) {
   requestURL += (type) ? '&type='+type : '';
   console.log('Sending request:' + requestURL);
   loadPage(1, requestURL);
+}
+
+/**
+ *
+ * @param {int} id the id of the product as sent by the api
+ */
+function openProductPage(id) {
+  if (id < 1) {
+    return;
+  }
+
+  window.location.href = './pages/product.html?id='+id;
 }

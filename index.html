@@ -13,7 +13,8 @@
     <script defer src="scripts/load_items.js"></script>
 </head>
 <body>
-    <section id="landing">
+    <section id="landing" onclick="document.querySelector('#shop').scrollIntoView({ 
+        behavior: 'smooth', block: 'start' });">
 
     </section>
     <section id="shop">
@@ -36,7 +37,7 @@
         </div>
 
         <div id="shop-container">
-            <button id="cart">Cart</button>
+            <button id="cart" onclick="window.location.href = './pages/cart.html'"></button>
             <button id="filter-btn" onclick="showFilters()">Filter</button>
             <div id="products-container">
                 <!--Async content loading-->

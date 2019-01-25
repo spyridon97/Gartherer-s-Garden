@@ -6,10 +6,75 @@
     <title>Product name</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../main.css" />
+    <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Crimson+Text" rel="stylesheet">
+    
+    <script defer src="../scripts/load_product.js"></script>
+    <script defet src="../scripts/carousel.js"></script>
+    <script defet src="../scripts/post_comment.js"></script>
 </head>
 <body>
     <main>
-        
+        <section id="advert" onclick="document.querySelector('#info').scrollIntoView({ 
+            behavior: 'smooth', block: 'start' });">
+            <div class='outer-scratch'>
+                <div class="inner-scratch">
+                    <div class="advertisment-img grain">
+                        <img src="../images/Ads/Enrage.png" alt="Enrage advert" id="adv_img">
+                        <p class="quote">"Developed for use in today's uncertain environment, ENRAGE! will make your victim forget what side he's on, and attack anyone nearby. Just make sure 'anyone' isn't you!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="product-info">
+            <button id="back-btn" onclick="window.location.href = '../'"></button>
+            <div id="carousel">
+                <img alt="Enrage bottle" id="img1">
+                <img class="none" alt="Entrage sprite" id="img2">
+                <div id="dots">
+                    <span class="dot selected" id="dot1" onclick="loadImage(1)"></span>
+                    <span class="dot" id="dot2" onclick="loadImage(2)"></span>
+                </div>
+            </div> 
+            <div id="info">
+                <p>Today presenting:</p>
+                <h1 id="title"></h1>
+                <p>An exceptional <span class="type"></span> with the following effect:</p>
+                <p id="effect"></p>
+                <p class="type"><span class="emp">Type: </span></p>
+
+                <div id="buy-container">
+                    <div class="costs">
+                        <p id="casting-cost"><span class="emp">Casting cost: </span></p>
+                        <p id="price"><span class="emp">Price: </span></p>
+                    </div>
+                    <button id="add-cart">Add to cart</button>
+                </div>
+
+                <div id="comments-container">
+                    <h3>Product reviews</h3>
+
+                    <div id="comments">
+                        
+                    </div>
+                    <div id="add-comment">
+                        <p>Add a comment</p>
+                        <form>
+                            <div class="stars">
+                                <svg aria-hidden="true" data-prefix="fas" data-icon="star" class="star" onclick="sumbitRating(1)" id="star1" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+                                <svg aria-hidden="true" data-prefix="fas" data-icon="star" class="star" onclick="sumbitRating(2)" id="star2" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+                                <svg aria-hidden="true" data-prefix="fas" data-icon="star" class="star" onclick="sumbitRating(3)" id="star3" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+                                <svg aria-hidden="true" data-prefix="fas" data-icon="star" class="star" onclick="sumbitRating(4)" id="star4" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+                                <svg aria-hidden="true" data-prefix="fas" data-icon="star" class="star" onclick="sumbitRating(5)" id="star5" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+                            </div>
+                            <textarea id="text" cols="20" rows="10" placeholder="A comment" onclick="clearErrors()"></textarea>
+                            <button type="button" onclick="postComment()">Add</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 </body>
 </html>
