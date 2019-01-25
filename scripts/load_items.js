@@ -29,6 +29,7 @@ class Product {
 
 /* RUNTIME */
 let currentPage = 1;
+let filter_url = '';
 
 const container = document.getElementById('products-container');
 loadProducts('./server/api/getProducts.php');
@@ -81,6 +82,9 @@ function loadPage(no, endpoint) {
       return;
     }
     url = './server/api/getProducts.php?page='+no;
+    if (filter_url) {
+      url += '&'+filter_url;
+    }
   } else {
     url = endpoint;
   }
@@ -154,11 +158,12 @@ function onFilterGoPressed() {
  */
 function applyFilters(minPrice, maxPrice, minCasting, maxCasting, type) {
   let requestURL = './server/api/getProducts.php?';
-  requestURL += (minPrice) ? 'price_min='+minPrice : '';
-  requestURL += (maxPrice) ? '&price_max='+maxPrice : '';
-  requestURL += (minCasting) ? '&casting_cost_min='+minCasting : '';
-  requestURL += (maxCasting) ? '&casting_cost_max='+maxCasting : '';
-  requestURL += (type) ? '&type='+type : '';
+  filter_url += (minPrice) ? 'price_min='+minPrice : '';
+  filter_url += (maxPrice) ? '&price_max='+maxPrice : '';
+  filter_url += (minCasting) ? '&casting_cost_min='+minCasting : '';
+  filter_url += (maxCasting) ? '&casting_cost_max='+maxCasting : '';
+  filter_url += (type) ? '&type='+type : '';
+  requestURL += filter_url;
   loadPage(1, requestURL);
 }
 
