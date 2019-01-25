@@ -15,13 +15,6 @@ section {
   height: 100vh; width: 100%;
 }
 
-section#landing {
-  background-image: url('./images/General/landing-back.png');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
 button {
   cursor: pointer;
   font-family: 'Righteous', cursive;
@@ -45,6 +38,24 @@ button {
 
 .emp {
   font-weight: bold;
+}
+
+/* Landing page */
+
+section#landing {
+  background-image: url('./images/General/landing-back.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+  height: 110vh;
+}
+
+#landing #gatherer {
+  bottom: -20px; left: 50%;
+  height: 65vh; width: auto;
+  position: absolute;
+  transform: translateX(-50%);
 }
 
 /* Shop page */
