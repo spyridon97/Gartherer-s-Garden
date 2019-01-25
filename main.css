@@ -589,6 +589,37 @@ section#product-info > #carousel {
   height: 100%;
 }
 
+/* Cart Page */
+#cart {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: auto; width: 100%;
+}
+#cart h1 {
+  font-variant: small-caps;
+  position: relative;
+}
+
+#cart h1::before, #cart h1::after {
+  background-color: black;
+  content: '';
+  height: 3px; width: 150%;
+  position: absolute;
+}
+
+#cart h1::before {
+  left: -20%; top: 0;
+}
+
+#cart h1::after {
+  bottom: 0; right: -40%;
+}
+
+li {
+  list-style: none;
+}
+
 /* Animations */
 
 @keyframes scratch {

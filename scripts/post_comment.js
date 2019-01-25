@@ -44,7 +44,10 @@ function postComment() {
     }),
   }).then((response)=> {
     response.json().then((json)=> {
-      console.log(json);
+      document.getElementById('comments').appendChild(
+          newComment(json['stars'], json['date'],
+              json['comment_text'])
+      );
     });
   });
 }

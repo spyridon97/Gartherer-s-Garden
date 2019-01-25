@@ -9,7 +9,7 @@ loadComments(id);
  */
 function loadProductInfo(id) {
   fetch('../server/api/getProduct.php?id='+id).then((response) =>{
-    response.json().then((json) => {
+    response.json().then((json)=> {
       // Populate html
       const image = document.getElementById('adv_img');
       if (json['ad']) {
