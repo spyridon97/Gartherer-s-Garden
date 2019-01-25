@@ -39,7 +39,7 @@ if (!empty($data->product_id) && !empty($data->comment_text) && !empty($data->st
         $result = $commentController->postComment(intval($data->product_id), $data->comment_text, intval($data->stars));
         if ($result != -1) {
             //  query last added comment
-            $stmt = $comment->getComment($result);
+            $stmt = $commentController->getComment($result);
             $num = $stmt->rowCount();
 
             if ($num == 1) {
