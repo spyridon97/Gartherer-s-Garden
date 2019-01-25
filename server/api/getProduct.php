@@ -7,8 +7,17 @@
  */
 
 //  required headers
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
+
+//   allow only post request
+if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+    //  tell the user
+    echo json_encode(array("message" => "{$_SERVER['REQUEST_METHOD']} Method Not Allowed."));
+
+    //  set response code - 405 Method not allowed
+    http_response_code(405);
+    exit();
+}
 
 //  include database and object files
 include_once 'apiDocumentation.php';
@@ -28,7 +37,7 @@ if ($id > 0) {
     //  reading product
 
     //  query product
-    $stmt = $product->readProduct($id);
+    $stmt = $product->getProduct($id);
     $num = $stmt->rowCount();
 
     if ($num == 1) {
@@ -59,15 +68,11 @@ if ($id > 0) {
         http_response_code(404);
 
         //  tell the user no comments found
-        echo json_encode(
-            array("message" => "No product found.")
-        );
+        echo json_encode(array("message" => "No product found."));
     }
 } else {
     //  set response code - 422 Missing parameter id
     http_response_code(422);
 
-    echo json_encode(
-        array("message" => "Missing parameter id or invalid value.")
-    );
+    echo json_encode(array("message" => "Missing parameter id or invalid value."));
 }

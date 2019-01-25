@@ -25,10 +25,25 @@ class Comment
         $this->conn = $db;
     }
 
-    public function readComments($product_id, $order_by, $order_dir)
+    public function getComment($id)
+    {
+        //  query to get the last id
+        $query_last_id = "SELECT * 
+                          FROM $this->table_name 
+                          WHERE Id = $id
+                          LIMIT 0, 1";
+
+        $stmt = $this->conn->prepare($query_last_id);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
+    public function getComments($product_id, $order_by, $order_dir)
     {
         //  select query
-        $query = "SELECT Id, Product_Id, Comment_Text, Stars, Date
+        $query = "SELECT *
                   FROM $this->table_name
                   WHERE Product_Id = $product_id
                   ORDER BY $order_by $order_dir";
@@ -41,7 +56,7 @@ class Comment
         return $stmt;
     }
 
-    public function createComment()
+    public function postComment()
     {
         //  query to insert record
         $query = "INSERT INTO $this->table_name (Product_Id, Comment_Text, Stars, Date)
@@ -49,11 +64,8 @@ class Comment
 
         //  prepare query
         $stmt = $this->conn->prepare($query);
-        //  execute query
-        if ($stmt->execute()) {
-            return true;
-        }
 
-        return false;
+        //  execute query
+        return ($stmt->execute()) ? intval($this->conn->lastInsertId()) : -1;
     }
 }

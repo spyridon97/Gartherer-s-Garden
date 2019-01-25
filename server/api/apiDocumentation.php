@@ -91,6 +91,6 @@ $from_record_num = ($records_per_page * $page) - $records_per_page;
 {
     "product_id": 3,
     "comment_text": "Σκουπίδι",
-    "stars": 5
+    "stars": 1
 }
 */

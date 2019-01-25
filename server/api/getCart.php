@@ -1,9 +1,25 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Giannis
+ * Date: 21/1/2019
+ * Time: 4:56 μμ
+ */
 
 // required headers
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
+//   allow only post request
+if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+    //  tell the user
+    echo json_encode(array("message" => "{$_SERVER['REQUEST_METHOD']} Method Not Allowed."));
+
+    //  set response code - 405 Method not allowed
+    http_response_code(405);
+    exit();
+}
+
+//  include database and object files
 include_once '../config/Database.php';
 include_once 'apiDocumentation.php';
 include_once '../objects/Product.php';
@@ -26,7 +42,7 @@ if (isset($_SESSION["cart"]) and $_SESSION["cart"] != NULL) {
     //  for each unique id in the cart, meaning we don't show each product more than once
     foreach (array_unique($_SESSION["cart"]) as $proion) {
         //  query product
-        $stmt = $product->readProduct($proion);
+        $stmt = $product->getProduct($proion);
         //  get retrieved row
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 

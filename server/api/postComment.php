@@ -7,11 +7,17 @@
  */
 
 // required headers
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
+//   allow only post request
+if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+    //  tell the user
+    echo json_encode(array("message" => "{$_SERVER['REQUEST_METHOD']} Method Not Allowed."));
+
+    //  set response code - 405 Method not allowed
+    http_response_code(405);
+    exit();
+}
 
 //  include database and object files
 include_once '../config/Database.php';
@@ -40,13 +46,37 @@ if (!empty($data->product_id) && !empty($data->comment_text) && !empty($data->st
         $comment->stars = intval($data->stars);
 
         //  create the product
-        if ($comment->createComment()) {
-            //  set response code - 201 created
-            http_response_code(201);
+        $result = $comment->postComment();
+        if ($result != -1) {
+            //  query last added comment
+            $stmt = $comment->getComment($result);
+            $num = $stmt->rowCount();
 
-            //  tell the user
-            echo json_encode(array("message" => "Comment was created."));
+            if ($num == 1) {
+                //  get retrieved row
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
+                $comment_item = array(
+                    "id" => intval($row['Id']),
+                    "product_id" => intval($row['Product_Id']),
+                    "comment_text" => html_entity_decode($row['Comment_Text']),
+                    "stars" => intval($row['Stars']),
+                    "date" => html_entity_decode($row['Date'])
+                );
+
+                //  set response code - 201 OK
+                http_response_code(201);
+
+                //  make it json format
+                echo json_encode($comment_item);
+
+            } else {
+                //  set response code - 404 Not found
+                http_response_code(404);
+
+                //  tell the user no comments found
+                echo json_encode(array("message" => "No comment found."));
+            }
         } else {//  if unable to create the product, tell the user
             // set response code - 503 service unavailable
             http_response_code(503);

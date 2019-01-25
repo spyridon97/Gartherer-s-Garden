@@ -1,12 +1,25 @@
 <?php
-// required headers
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
-header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+/**
+ * Created by PhpStorm.
+ * User: Giannis
+ * Date: 21/1/2019
+ * Time: 4:56 μμ
+ */
 
-//  get database connection
+// required headers
+header("Content-Type: application/json; charset=UTF-8");
+
+//   allow only post request
+if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+    //  tell the user
+    echo json_encode(array("message" => "{$_SERVER['REQUEST_METHOD']} Method Not Allowed."));
+
+    //  set response code - 405 Method not allowed
+    http_response_code(405);
+    exit();
+}
+
+//  include database and object files
 include_once 'apiDocumentation.php';
 include_once '../config/Database.php';
 

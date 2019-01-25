@@ -7,8 +7,17 @@
  */
 
 // required headers
-header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
+
+//   allow only post request
+if ($_SERVER['REQUEST_METHOD'] != 'GET') {
+    //  tell the user
+    echo json_encode(array("message" => "{$_SERVER['REQUEST_METHOD']} Method Not Allowed."));
+
+    //  set response code - 405 Method not allowed
+    http_response_code(405);
+    exit();
+}
 
 //  include database and object files
 include_once 'apiDocumentation.php';
@@ -30,7 +39,7 @@ $utilities = new Utilities();
 //  reading products
 
 //  query products
-$stmt = $product->readProducts($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max,
+$stmt = $product->getProducts($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max,
     $order_by, $order_dir, $from_record_num, $records_per_page);
 $num = $stmt->rowCount();
 
@@ -58,7 +67,7 @@ if ($num > 0) {
     }
 
     //  paging the results
-    $total_rows = $product->count($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max);
+    $total_rows = $product->countProducts($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max);
     $paging = $utilities->getPaging($page, $total_rows, $records_per_page);
     $results["number_of_results"] = intval($total_rows);
     $results["paging"] = $paging;
@@ -74,7 +83,5 @@ if ($num > 0) {
     http_response_code(404);
 
     //  tell the user no products found
-    echo json_encode(
-        array("message" => "No products found.")
-    );
+    echo json_encode(array("message" => "No products found."));
 }

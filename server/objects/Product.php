@@ -30,12 +30,12 @@ class Product
         $this->conn = $db;
     }
 
-    public function readProduct($id)
+    public function getProduct($id)
     {
         //  query
-        $query = "SELECT Id, Name, Price, Image, Quote, Effect, Casting_Cost, Type
+        $query = "SELECT *
                   FROM $this->table_name
-                  WHERE Id = '$id'
+                  WHERE Id = $id
                   LIMIT 0, 1";
 
         //  prepare query statement
@@ -46,13 +46,13 @@ class Product
         return $stmt;
     }
 
-    public function readProducts($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max,
-                                 $order_by, $order_dir, $from_record_num, $records_per_page)
+    public function getProducts($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max,
+                                $order_by, $order_dir, $from_record_num, $records_per_page)
     {
         //  sub string for query
         $type_string = ($type != "") ? "Type = '$type' AND" : "";
         //  query
-        $query = "SELECT Id, Name, Price, Image, Quote, Effect, Casting_Cost, Type
+        $query = "SELECT *
                   FROM  $this->table_name
                   WHERE $type_string Price >= $price_min AND Price <= $price_max AND 
                         Casting_Cost >= $casting_cost_min AND Casting_Cost <= $casting_cost_max
@@ -67,7 +67,7 @@ class Product
         return $stmt;
     }
 
-    public function count($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max)
+    public function countProducts($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max)
     {
         //  sub string for query
         $type_string = ($type != "") ? "Type = '$type' AND" : "";
