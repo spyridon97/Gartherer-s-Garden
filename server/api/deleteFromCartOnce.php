@@ -73,14 +73,15 @@ if ($data->id > 0) {
             );
             
             array_push($results["products"], $product_item);
+          
             $tmp = array_count_values($_SESSION["cart"]);
-            $quantity = $tmp[$data->id];
-
-            if($quantity!=NULL){
+            if (!empty($tmp[$data->id])) {
+                $quantity = $tmp[$data->id];
                 array_push($results["quantities"], $quantity);
             }else{
                 array_push($results["quantities"], 0);
             }
+            
             echo json_encode($results);
             
         } else {
