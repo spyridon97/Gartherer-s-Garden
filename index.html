@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Gatherer's Garden</title>
     <meta name="description" content="In the garden we are growin'/Many changes will be flowin'/If you want to be amazin'/See the flowers we are raisin'">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="./favicon.ico"> 
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
 
@@ -15,9 +16,11 @@
 <body>
     <section id="landing" onclick="document.querySelector('#shop').scrollIntoView({ 
         behavior: 'smooth', block: 'start' });">
+        <h2 class="none">Welcome</h2>
 
     </section>
     <section id="shop">
+        <h2 class="none">shop</h2>
         <div id="filter-modal" class="none">
             <form id="filters">
                 <p>Price</p>
@@ -27,10 +30,10 @@
                 <input id="input_cast_min" type="text" placeholder="from"/>
                 <input id="input_cast_max" type="text" placeholder="to"/>
                 <p>Type</p>
-                <input id="input_plasmid" name="plasmid" type="checkbox" value="Plasmid" checked>
-                <label for="plasmid">Plasmid</label>
-                <input id="input_tonic" name="gene_tonic" type="checkbox" value="Gene Tonic" checked> 
-                <label for="gene_tonic">Gene Tonic</label>
+                <input id="input_plasmid" name="input_plasmid" type="checkbox" value="Plasmid" checked>
+                <label for="input_plasmid">Plasmid</label>
+                <input id="input_tonic" name="input_tonic" type="checkbox" value="Gene Tonic" checked> 
+                <label for="input_tonic">Gene Tonic</label>
                 <br>
                 <button type="button" onclick="onFilterGoPressed(event)">Go</button>
             </form>

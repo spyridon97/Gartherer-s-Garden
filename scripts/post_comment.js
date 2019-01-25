@@ -1,11 +1,11 @@
-let stars = 0;
+let stars = 1;
 
 /**
  * 
  * @param {int} no 
  */
 function sumbitRating(no) {
-  if (no > 0 && no < 6) {
+  if (no > 1 && no < 6) {
     stars = no;
   }
   // Reset
