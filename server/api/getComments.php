@@ -9,21 +9,14 @@
 //  required headers
 header("Content-Type: application/json; charset=UTF-8");
 
-//   allow only post request
-if ($_SERVER['REQUEST_METHOD'] != 'GET') {
-    //  tell the user
-    echo json_encode(array("message" => "{$_SERVER['REQUEST_METHOD']} Method Not Allowed."));
-
-    //  set response code - 405 Method not allowed
-    http_response_code(405);
-    exit();
-}
-
-//  include database and object files
+//  includes
 include_once 'apiDocumentation.php';
-include_once '../shared/Utilities.php';
-include_once '../config/Database.php';
-include_once '../objects/Comment.php';
+include_once '../controllers/CommentsController.php';
+
+//  utilities
+$utilities = new Utilities();
+//  allow only GET Request
+$utilities->checkCorrectRequestMethod('GET');
 
 //  instantiate database object
 $database = new Database();
@@ -31,13 +24,14 @@ $database = new Database();
 $db = $database->getConnection();
 
 if ($product_id > 0) {
+
     //  initialize comment object
-    $comment = new Comment($db);
+    $commentsController = new CommentsController($db);
 
     //  reading comments
 
     //  query comments
-    $stmt = $comment->getComments($product_id, $order_by, $order_dir);
+    $stmt = $commentsController->getComments($product_id, $order_by, $order_dir);
     $num = $stmt->rowCount();
 
     //  check if more than 0 record found
@@ -63,7 +57,6 @@ if ($product_id > 0) {
 
         //  show comments data in json format
         echo json_encode($results);
-
     } else {
         //  set response code - 404 Not found
         http_response_code(404);
@@ -75,5 +68,6 @@ if ($product_id > 0) {
     //  set response code - 422 Missing parameter
     http_response_code(422);
 
+    //  tell the user
     echo json_encode(array("message" => "Missing parameter product_id."));
 }

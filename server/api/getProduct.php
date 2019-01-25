@@ -9,21 +9,14 @@
 //  required headers
 header("Content-Type: application/json; charset=UTF-8");
 
-//   allow only post request
-if ($_SERVER['REQUEST_METHOD'] != 'GET') {
-    //  tell the user
-    echo json_encode(array("message" => "{$_SERVER['REQUEST_METHOD']} Method Not Allowed."));
-
-    //  set response code - 405 Method not allowed
-    http_response_code(405);
-    exit();
-}
-
-//  include database and object files
+//  includes
 include_once 'apiDocumentation.php';
-include_once '../shared/Utilities.php';
-include_once '../config/Database.php';
-include_once '../objects/Product.php';
+include_once '../controllers/ProductsController.php';
+
+//  utilities
+$utilities = new Utilities();
+//  allow only GET Request
+$utilities->checkCorrectRequestMethod('GET');
 
 //  instantiate database object
 $database = new Database();
@@ -31,13 +24,14 @@ $database = new Database();
 $db = $database->getConnection();
 
 if ($id > 0) {
+
     //  initialize product object
-    $product = new Product($db);
+    $product = new ProductsController($db);
 
     //  reading product
 
     //  query product
-    $stmt = $product->getProduct($id);
+    $stmt = $productsController->getProduct($id);
     $num = $stmt->rowCount();
 
     if ($num == 1) {
@@ -62,7 +56,6 @@ if ($id > 0) {
 
         //  make it json format
         echo json_encode($product_item);
-
     } else {
         //  set response code - 404 Not found
         http_response_code(404);
@@ -74,5 +67,6 @@ if ($id > 0) {
     //  set response code - 422 Missing parameter id
     http_response_code(422);
 
+    //  tell the user
     echo json_encode(array("message" => "Missing parameter id or invalid value."));
 }

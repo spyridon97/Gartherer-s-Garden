@@ -6,25 +6,33 @@
  * Time: 11:17 am
  */
 
-class Comment
+class CommentsController
 {
     //  database connection and table name
     private $conn;
     private $table_name = "comments";
 
-    //  object properties
-    public $id;
-    public $product_id;
-    public $comment_text;
-    public $stars;
-    public $date;
+    //  table properties
+    public $id = 'Id';
+    public $product_id = 'Product_Id';
+    public $comment_text = 'Comment_Text';
+    public $stars = 'Stars';
+    public $date = 'Date';
 
-    //  constructor with $db as database connection
+    /**
+     * @brief Comments constructor.
+     * @param $db : database connection
+     */
     public function __construct($db)
     {
         $this->conn = $db;
     }
 
+    /**
+     * @brief This function returns the comment with a specific id.
+     * @param $id : the given id of the comment that we are searching for
+     * @return mixed : the result of the query
+     */
     public function getComment($id)
     {
         //  query to get the last id
@@ -40,6 +48,13 @@ class Comment
         return $stmt;
     }
 
+    /**
+     * @brief This function returns the comments of a specific product.
+     * @param $product_id : the given product_id
+     * @param $order_by : the given order by option
+     * @param $order_dir : the given direction of the order
+     * @return mixed : the result of the query
+     */
     public function getComments($product_id, $order_by, $order_dir)
     {
         //  select query
@@ -56,11 +71,18 @@ class Comment
         return $stmt;
     }
 
-    public function postComment()
+    /**
+     * @brief This function returns the id of the comment that we posted.
+     * @param $product_id : the given product_id
+     * @param $comment_text : the given comment text
+     * @param $stars : the given stars
+     * @return int : the id of the comment that we posted
+     */
+    public function postComment($product_id, $comment_text, $stars)
     {
         //  query to insert record
         $query = "INSERT INTO $this->table_name (Product_Id, Comment_Text, Stars, Date)
-                  VALUES ($this->product_id, '$this->comment_text', $this->stars, CURDATE())";
+                  VALUES ($product_id, '$comment_text', $stars, CURDATE())";
 
         //  prepare query
         $stmt = $this->conn->prepare($query);

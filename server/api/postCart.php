@@ -9,19 +9,13 @@
 // required headers
 header("Content-Type: application/json; charset=UTF-8");
 
-//   allow only post request
-if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-    //  tell the user
-    echo json_encode(array("message" => "{$_SERVER['REQUEST_METHOD']} Method Not Allowed."));
-
-    //  set response code - 405 Method not allowed
-    http_response_code(405);
-    exit();
-}
-
-//  include database and object files
-include_once '../config/Database.php';
+//  includes
 include_once 'apiDocumentation.php';
+
+//  utilities
+$utilities = new Utilities();
+//  allow only POST Request
+$utilities->checkCorrectRequestMethod('POST');
 
 //  instantiate database object
 $database = new Database();
@@ -49,8 +43,7 @@ if (!empty($data->id)) {
         http_response_code(200);
 
         //  show products data in json format
-        echo json_encode(array("message" => "Product successfully added to cart."));
-
+        echo json_encode(array("message" => "ProductsController successfully added to cart."));
     } else {
         //  set response code - 400 bad request
         http_response_code(400);

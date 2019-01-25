@@ -15,10 +15,12 @@ class Database
     private $password = "2019BErgasia";
     public $conn;
 
-    //  get the database connection
+    /**
+     * @brief  This function connects us with the database.
+     * @return PDO|null
+     */
     public function getConnection()
     {
-
         $this->conn = null;
 
         try {

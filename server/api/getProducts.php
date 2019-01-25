@@ -9,21 +9,14 @@
 // required headers
 header("Content-Type: application/json; charset=UTF-8");
 
-//   allow only post request
-if ($_SERVER['REQUEST_METHOD'] != 'GET') {
-    //  tell the user
-    echo json_encode(array("message" => "{$_SERVER['REQUEST_METHOD']} Method Not Allowed."));
-
-    //  set response code - 405 Method not allowed
-    http_response_code(405);
-    exit();
-}
-
-//  include database and object files
+//  includes
 include_once 'apiDocumentation.php';
-include_once '../shared/Utilities.php';
-include_once '../config/Database.php';
-include_once '../objects/Product.php';
+include_once '../controllers/ProductsController.php';
+
+//  utilities
+$utilities = new Utilities();
+//  allow only GET Request
+$utilities->checkCorrectRequestMethod('GET');
 
 //  instantiate database object
 $database = new Database();
@@ -31,20 +24,18 @@ $database = new Database();
 $db = $database->getConnection();
 
 //  initialize product object
-$product = new Product($db);
-
-//  utilities
-$utilities = new Utilities();
+$productsController = new ProductsController($db);
 
 //  reading products
 
 //  query products
-$stmt = $product->getProducts($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max,
+$stmt = $productsController->getProducts($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max,
     $order_by, $order_dir, $from_record_num, $records_per_page);
 $num = $stmt->rowCount();
 
 //  check if more than 0 record found
 if ($num > 0) {
+
     //  products array
     $results = array();
     $results["products"] = array();
@@ -67,7 +58,7 @@ if ($num > 0) {
     }
 
     //  paging the results
-    $total_rows = $product->countProducts($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max);
+    $total_rows = $productsController->countProducts($type, $price_min, $price_max, $casting_cost_min, $casting_cost_max);
     $paging = $utilities->getPaging($page, $total_rows, $records_per_page);
     $results["number_of_results"] = intval($total_rows);
     $results["paging"] = $paging;
@@ -77,7 +68,6 @@ if ($num > 0) {
 
     //  show products data in json format
     echo json_encode($results);
-
 } else {
     //  set response code - 404 Not found
     http_response_code(404);

@@ -9,20 +9,14 @@
 // required headers
 header("Content-Type: application/json; charset=UTF-8");
 
-//   allow only post request
-if ($_SERVER['REQUEST_METHOD'] != 'GET') {
-    //  tell the user
-    echo json_encode(array("message" => "{$_SERVER['REQUEST_METHOD']} Method Not Allowed."));
-
-    //  set response code - 405 Method not allowed
-    http_response_code(405);
-    exit();
-}
-
-//  include database and object files
-include_once '../config/Database.php';
+//  includes
 include_once 'apiDocumentation.php';
-include_once '../objects/Product.php';
+include_once '../controllers/ProductsController.php';
+
+//  utilities
+$utilities = new Utilities();
+//  allow only GET Request
+$utilities->checkCorrectRequestMethod('GET');
 
 //  instantiate database object
 $database = new Database();
@@ -34,7 +28,7 @@ $results["products"] = array();
 $results["quantities"] = array();
 
 //  initialize product object
-$product = new Product($db);
+$productsController = new ProductsController($db);
 
 session_start();
 if (isset($_SESSION["cart"]) and $_SESSION["cart"] != NULL) {
@@ -42,7 +36,7 @@ if (isset($_SESSION["cart"]) and $_SESSION["cart"] != NULL) {
     //  for each unique id in the cart, meaning we don't show each product more than once
     foreach (array_unique($_SESSION["cart"]) as $proion) {
         //  query product
-        $stmt = $product->getProduct($proion);
+        $stmt = $productsController->getProduct($proion);
         //  get retrieved row
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -71,7 +65,6 @@ if (isset($_SESSION["cart"]) and $_SESSION["cart"] != NULL) {
 
     //  make it json format
     echo json_encode($results);
-
 } else {
     //  set response code - 404 not found
     http_response_code(404);

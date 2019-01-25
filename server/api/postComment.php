@@ -9,19 +9,14 @@
 // required headers
 header("Content-Type: application/json; charset=UTF-8");
 
-//   allow only post request
-if ($_SERVER['REQUEST_METHOD'] != 'POST') {
-    //  tell the user
-    echo json_encode(array("message" => "{$_SERVER['REQUEST_METHOD']} Method Not Allowed."));
+//  includes
+include_once 'apiDocumentation.php';
+include_once '../controllers/CommentsController.php';
 
-    //  set response code - 405 Method not allowed
-    http_response_code(405);
-    exit();
-}
-
-//  include database and object files
-include_once '../config/Database.php';
-include_once '../objects/Comment.php';
+//  utilities
+$utilities = new Utilities();
+//  allow only POST Request
+$utilities->checkCorrectRequestMethod('POST');
 
 //  instantiate database object
 $database = new Database();
@@ -29,7 +24,7 @@ $database = new Database();
 $db = $database->getConnection();
 
 //  instantiate comment object
-$comment = new Comment($db);
+$commentController = new CommentsController($db);
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
@@ -40,13 +35,8 @@ if (!empty($data->product_id) && !empty($data->comment_text) && !empty($data->st
     //  make sure stars are between 1 and 5
     if ($data->stars >= 1 && $data->stars <= 5) {
 
-        //  set product property values
-        $comment->product_id = intval($data->product_id);
-        $comment->comment_text = $data->comment_text;
-        $comment->stars = intval($data->stars);
-
         //  create the product
-        $result = $comment->postComment();
+        $result = $commentController->postComment(intval($data->product_id), $data->comment_text, intval($data->stars));
         if ($result != -1) {
             //  query last added comment
             $stmt = $comment->getComment($result);
@@ -69,7 +59,6 @@ if (!empty($data->product_id) && !empty($data->comment_text) && !empty($data->st
 
                 //  make it json format
                 echo json_encode($comment_item);
-
             } else {
                 //  set response code - 404 Not found
                 http_response_code(404);
@@ -91,8 +80,7 @@ if (!empty($data->product_id) && !empty($data->comment_text) && !empty($data->st
         //  tell the user
         echo json_encode(array("message" => "Unable to create comment. Stars must be between 1 and 5."));
     }
-} else {//  tell the user data is incomplete
-
+} else {
     //  set response code - 400 bad request
     http_response_code(400);
 

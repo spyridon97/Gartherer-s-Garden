@@ -10,6 +10,11 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+//  includes that are needed everywhere
+
+include_once '../config/Database.php';
+include_once '../shared/Utilities.php';
+
 
 /** JSON example of server/api/deleteFromCart.php, , Function : Post **/
 
