@@ -26,7 +26,7 @@ $db = $database->getConnection();
 if ($id > 0) {
 
     //  initialize product object
-    $product = new ProductsController($db);
+    $productsController = new ProductsController($db);
 
     //  reading product
 
