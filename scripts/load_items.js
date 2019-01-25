@@ -108,7 +108,6 @@ function loadPage(no, endpoint) {
 function loadProducts(endpoint) {
   fetch(endpoint).then((response) =>{
     response.json().then((json) => {
-      console.log(json);
       const products = json['products'];
 
       // Load the products
@@ -160,7 +159,6 @@ function applyFilters(minPrice, maxPrice, minCasting, maxCasting, type) {
   requestURL += (minCasting) ? '&casting_cost_min='+minCasting : '';
   requestURL += (maxCasting) ? '&casting_cost_max='+maxCasting : '';
   requestURL += (type) ? '&type='+type : '';
-  console.log('Sending request:' + requestURL);
   loadPage(1, requestURL);
 }
 

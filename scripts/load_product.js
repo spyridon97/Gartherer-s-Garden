@@ -45,6 +45,7 @@ function loadComments(id) {
       if (!comments) {
         const noComments = document.createElement('p');
         noComments.innerHTML = 'no comments yet.';
+        noComments.id = 'no_comments_parag';
         document.getElementById('comments').appendChild(noComments);
         return;
       }

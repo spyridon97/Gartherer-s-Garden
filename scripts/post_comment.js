@@ -29,6 +29,11 @@ function clearErrors() {
  *
  */
 function postComment() {
+  // Delete no comments paragraph
+  const noCom = document.getElementById('no_comments_parag');
+  if (noCom) {
+    noCom.classList = 'none';
+  }
   const text = document.getElementById('text');
   if (text.value.length < 1) {
     text.classList += ' error';
